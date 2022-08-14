@@ -1,8 +1,8 @@
-package gwang.baekjoon.level.bronze;
+package gwang.baekjoon.level.silver;
 
 import java.util.Scanner;
 
-public class baekjoon_16953 {
+public class baekjoon_16953_2 {
 	
 	static int min = 1000000000;
 	static boolean isFind = false;
