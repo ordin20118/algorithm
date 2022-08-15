@@ -1,7 +1,5 @@
-package gwang.baekjoon.level.silver;
+package gwang.baekjoon.level.gold;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class baekjoon_12869 {
@@ -26,11 +24,14 @@ public class baekjoon_12869 {
 	 */
 	
 	static int[] scv;
-	static int cnt = 0;	
 	static int N = 0;
 	
-	static int[][][] dp;
-
+	static int[][][] dp;	// value = count
+	
+	static int[] attA = {9,9,3,3,1,1};
+	static int[] attB = {3,1,9,1,9,3};
+	static int[] attC = {1,3,1,9,3,9};
+ 
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -38,20 +39,53 @@ public class baekjoon_12869 {
 		dp = new int[61][61][61];
 		
 		N = sc.nextInt();
-		scv = new int[N];
+		scv = new int[3];
 				
 		sc.nextLine();
 		String[] scvArr = sc.nextLine().split(" ");
-		scv[0] = Integer.parseInt(scvArr[0]);
-		scv[1] = Integer.parseInt(scvArr[1]);
-		scv[2] = Integer.parseInt(scvArr[2]);
 		
 		
+		for(int s=0; s<N; s++) {
+			scv[s] = Integer.parseInt(scvArr[s]);			
+		}
 		
+		for(int s=N; s<3; s++) {
+			scv[s] = 0;
+		}
+		
+		
+		dfs(scv, 0);
+		
+		System.out.println("" + dp[0][0][0]);
 
 	}
 	
-	public static void dfs(int actionId, int time) {
+	public static void dfs(int[] arr, int count) {
+		
+		// dp check
+		// - 값이 있는지
+		// - 있다면 현재 값보다 작은지
+		if(dp[arr[0]][arr[1]][arr[2]] > 0) {
+			if(dp[arr[0]][arr[1]][arr[2]] > count) {
+				dp[arr[0]][arr[1]][arr[2]] = count;
+			} else {
+				// 뒤늦게 들어온 방식이 결과가 더 안좋은 경우 => 더이상 진행 필요 없음
+				return;
+			}
+		} else {	
+			// dp = 0
+			dp[arr[0]][arr[1]][arr[2]] = count;
+		}
+	
+		
+		// make next
+		for(int i=0; i<attA.length; i++) {
+			int nA = Math.max(arr[0] - attA[i], 0);
+			int nB = Math.max(arr[1] - attB[i], 0);
+			int nC = Math.max(arr[2] - attC[i], 0);
+			
+			dfs(new int[] {nA, nB, nC}, count+1);
+		}
 		
 	}
 
