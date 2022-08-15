@@ -5,13 +5,15 @@ import java.util.Scanner;
 public class baekjoon_2798 {
 	
 	static int answer = 0;
-
+	static int M;
+	static int N;
+	
 	public static void main(String[] args) {		
 		
 		Scanner sc = new Scanner(System.in);
 		
-		int N = sc.nextInt();
-		int M = sc.nextInt();
+		N = sc.nextInt();
+		M = sc.nextInt();
 
 		int[] cards = new int[N];
 		
@@ -19,31 +21,40 @@ public class baekjoon_2798 {
 			cards[i] = sc.nextInt();
 		}
 		
-		dfs(cards, 0, 0, 0, M, "");
+		dfs(cards, 0, 0, 0, "");
 		
-		System.out.println("answer:["+answer+"]");
+		//newDfs(cards, 0, 0, 0, 0, new boolean[cards.length]);
+		
+		
+		System.out.println(""+answer+"");
 		
 	}
 	
-	static public void dfs(int[] cards, int depth, int cnt, int sum, int blackjack, String selected) {
+	// selected: for debug
+	static public void dfs(int[] cards, int depth, int cnt, int sum, String selected) {
 	
-		if(depth == cards.length || cnt >= 3) {
-			
-			if(cnt == 3 && sum <= blackjack && (blackjack-sum) < (blackjack-answer)) {
-				answer = sum;
+		//System.out.println("selected:[" + selected + "] 			| cnt:["+cnt+"] | sum:["+sum+"]");
+		
+		if(sum > M) {
+			return;
+		}
+		
+		if(depth == N || cnt >= 3) {
+			//System.out.println("[[RES]] => selected:[" + selected + "]/ cnt:["+cnt+"] / depth:["+depth+"]");	
+			if(cnt == 3) {
+				answer = Math.max(answer, sum);
 			}
 			return;
 		}
 		
-		//System.out.println("" + selected + "/ cnt:["+cnt+"] / depth:["+depth+"]");
 		
 		for(int i=0; i<2; i++) {
 			if(i == 0) {
-				sum += cards[depth];				
+				//sum += cards[depth];				
 				String newSelected = selected + " " + cards[depth];
-				dfs(cards, depth+1, cnt+1, sum, blackjack, newSelected);				
+				dfs(cards, depth+1, cnt+1, sum+cards[depth], newSelected);				
 			} else {			
-				dfs(cards, depth+1, cnt, sum, blackjack, selected);				
+				dfs(cards, depth+1, cnt, sum, selected);				
 			}
 		}
 		
