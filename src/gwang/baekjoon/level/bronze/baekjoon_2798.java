@@ -49,11 +49,10 @@ public class baekjoon_2798 {
 		
 		
 		for(int i=0; i<2; i++) {
-			if(i == 0) {
-				//sum += cards[depth];				
+			if(i == 0) {			
 				String newSelected = selected + " " + cards[depth];
 				dfs(cards, depth+1, cnt+1, sum+cards[depth], newSelected);				
-			} else {			
+			} else {
 				dfs(cards, depth+1, cnt, sum, selected);				
 			}
 		}

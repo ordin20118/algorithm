@@ -3,7 +3,7 @@ package gwang.baekjoon.level.silver;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class baekjoon_2636 {
+public class baekjoon_2636_fail {
 	
 	static int dx[] = { 1,-1,0,0 };
 	static int dy[] = { 0,0,1,-1 };
