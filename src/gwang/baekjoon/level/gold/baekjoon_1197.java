@@ -1,4 +1,4 @@
-package gwang.baekjoon.doing;
+package gwang.baekjoon.level.gold;
 
 import java.util.*;
 import java.io.*;
@@ -43,7 +43,6 @@ public class baekjoon_1197 {
 		
 		for(int i=0; i<E; i++) {
 			String[] arr = br.readLine().split(" ");
-			System.out.println("["+arr[0]+"]/["+arr[1]+"]/["+arr[2]+"]");
 			edges[i] = new Edge(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
 		}
 		
@@ -62,34 +61,10 @@ public class baekjoon_1197 {
 				nodes[e.nodeB] = e.nodeB;
 			}
 			
-			// find and union
-			if(root == 0) {
-				union(e.nodeA, e.nodeB);
-				root = find(e.nodeA);
+			boolean isUnion = union(e.nodeA, e.nodeB);
+			
+			if(isUnion) {
 				finalWeight += e.weight;
-				System.out.println("["+e.nodeA+"]-["+e.nodeB+"]=>root:["+root+"]");
-			} else {
-				boolean a = false;
-				boolean b = false;
-				if(find(e.nodeA) == root) a = true;
-				if(find(e.nodeB) == root) b = true;
-				
-				System.out.println("root:["+root+"]/["+e.nodeA+"]-["+e.nodeB+"]:"+a+"/"+b+"");
-				
-				if(a && b) {
-				} else {
-					if(!a) {
-						union(root, e.nodeA);						
-						System.out.println("["+e.nodeA+"]["+find(e.nodeA)+"]");
-					}
-					if(!b) {
-						union(root, e.nodeB);	
-						System.out.println("["+e.nodeB+"]["+find(e.nodeB)+"]");
-					}
-					root = find(e.nodeB);
-					System.out.println("root:["+root+"]/["+find(e.nodeA)+"]-["+find(e.nodeB)+"]\n\n");
-					finalWeight += e.weight;
-				}
 			}
 		}
 		
@@ -109,17 +84,18 @@ public class baekjoon_1197 {
 		}
 	}
 
-	public static void union(int x, int y) {
+	public static boolean union(int x, int y) {
 		x = find(x);
 		y = find(y);
 		
-		if(x == y) return;
+		if(x == y) return false;
 		
 		if(x < y) {
 			nodes[x] = y;
 		} else {
 			nodes[y] = x;
 		}
+		return true;
 	}
 	
 	static class Edge {
