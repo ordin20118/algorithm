@@ -41,6 +41,13 @@ public class bakejoon_2012 {
 	
 	public static void main(String[] args) throws IOException {
 
+		// 확인
+//		System.out.println(Integer.MAX_VALUE);
+//		long a = 499999;
+//		long b = 500000;
+//		long c = a * b;
+//		System.out.println(c);
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		N = Integer.parseInt(br.readLine());
