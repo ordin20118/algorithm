@@ -22,6 +22,7 @@ public class baekjoon_1197 {
 	 * 출력
 	 * 첫째 줄에 최소 스패닝 트리의 가중치를 출력한다.
 	 * 
+	 * kruskal, union find
 	 */
 
 	public static int V;

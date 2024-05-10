@@ -8,7 +8,7 @@ public class baekjoon_11055 {
 	
 	static int N;
 	static int[] seq;
-	static int[] sumSeq;
+	static int[] dp;
 	static int maxSum = 0;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
@@ -18,47 +18,38 @@ public class baekjoon_11055 {
 		N = Integer.parseInt(br.readLine());
 		
 		seq = new int[N];
-		sumSeq = new int[N];
+		dp = new int[N];
 		
 		String[] strArr = br.readLine().split(" ");
 	
 		for(int i=0; i<strArr.length; i++) {
-			seq[i] = Integer.parseInt(strArr[i]);
+			seq[i] = Integer.parseInt(strArr[i]); 
+		}
+
+		
+		dp[0] = seq[0];
+		for(int i=1; i<seq.length; i++) {
+			
+			dp[i] = seq[i];	// dp 초기화
+			
+			for(int j=0; j<i; j++) {
+				
+				if(seq[j] < seq[i] && dp[i] < (dp[j] + seq[i])) {
+					dp[i] = dp[j] + seq[i];
+				}
+				
+			}
+			
 		}
 		
-		for(int i=0; i<seq.length; i++) {
-			solution(0, i, 0, ""+seq[i]);
+		for(int i=0; i<dp.length; i++) {
+			if(maxSum < dp[i]) maxSum = dp[i];
 		}
 		
 		System.out.println(maxSum);
 
 	}
 	
-	public static void solution(int before, int depth, int sum, String hist) {
-		
-		if(depth == N) {
-			if(maxSum <= sum) {
-				maxSum = sum;
-				System.out.println(hist);
-			}
-			return;
-		}
 	
-		
-		
-		int now = seq[depth]; 
-		int nowSum = sum + now;
-
-		if(sumSeq[depth] >= nowSum){
-			return;
-		}
-	
-		
-		if(before < now) {
-			solution(now, depth+1, nowSum, hist+"/"+now);	
-		}
-		solution(before, depth+1, sum, hist);
-		
-	}
 
 }

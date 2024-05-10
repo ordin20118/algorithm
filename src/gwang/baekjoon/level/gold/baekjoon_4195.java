@@ -21,6 +21,7 @@ public class baekjoon_4195 {
 	 * 출력
 	 * 친구 관계가 생길 때마다, 두 사람의 친구 네트워크에 몇 명이 있는지 구하는 프로그램을 작성하시오.
 	 * 
+	 * union find
 	 */
 
 	static Map<String, Node> root;	
